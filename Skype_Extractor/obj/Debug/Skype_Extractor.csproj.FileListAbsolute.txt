@@ -1,0 +1,17 @@
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\Skype_Extractor.exe.config
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\Skype_Extractor.exe
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\Skype_Extractor.pdb
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.csprojResolveAssemblyReference.cache
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.Properties.Resources.resources
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.csproj.GenerateResource.Cache
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.exe
+c:\users\welshay\documents\visual studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.pdb
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\EntityFramework.dll
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\System.Data.SQLite.dll
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\EntityFramework.xml
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\bin\Debug\System.Data.SQLite.xml
+C:\Users\Welshay\Documents\Visual Studio 2013\Projects\Skype_Extractor\Skype_Extractor\obj\Debug\Skype_Extractor.Form1.resources
