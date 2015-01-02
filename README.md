@@ -21,7 +21,10 @@ I used Visual Studio 2013 to develop this application. I also
 ended up using two packages; EntityFrameWork(6.1.1) and the 
 SQLite adapter from ADO.NET.
 
-Current things to work out:
- - Restructuring code to become more event-driven and readable
- - Designing a better UI
-    - Includes providing better feedback
+============
+Things to do
+============
+- Write a class that formats the chat history.
+ - This includes formatting links and symbols to plaintext (regex?)
+ - Indenting long messages (word wrap)
+- Fix the logic to display contacts that have actual chat history and not necessarily all contacts added by the skype user
