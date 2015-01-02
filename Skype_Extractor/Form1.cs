@@ -19,13 +19,6 @@ namespace Skype_Extractor
             InitializeComponent();
         }
 
-        // Opens a .db file (SQLite) that has skype chat history in it
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFile.InitialDirectory = "C:\\Users\\" + System.Environment.UserName + "\\AppData\\Roaming\\Skype";
-            openFile.ShowDialog();
-        }
-
         // Will extract contacts + associated chats for given skype user
         private void FindButton_Click(object sender, EventArgs e)
         {
@@ -71,6 +64,10 @@ namespace Skype_Extractor
                 return;
             }
             string s = (string) listBox1.SelectedItem;
+            if (s == null)
+            {
+                return;
+            }
             listBox1.Items.Remove(s);
             listBox2.Items.Add(s);
         }
@@ -83,6 +80,10 @@ namespace Skype_Extractor
                 return;
             }
             string s = (string)listBox2.SelectedItem;
+            if (s==null)
+            {
+                return;
+            }
             listBox2.Items.Remove(s);
             listBox1.Items.Add(s);
         }
@@ -114,6 +115,18 @@ namespace Skype_Extractor
             }
 
             sky.ExtractChat(listBox2.Items, saveLocationChatHistory.SelectedPath);
+
+            string dir = String.Format("Chat extraction is done. Your chat histories are found in the following directory:\n {0}",saveLocationChatHistory.SelectedPath);
+            MessageBox.Show(
+                dir,
+                "Extraction successful",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.None
+                );
+            SkypeIdTextBox.Text = null;
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+
         }
     }
 }

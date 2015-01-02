@@ -182,7 +182,7 @@
             this.Controls.Add(this.SkypeIdTextBox);
             this.Controls.Add(this.FindButton);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Skype Chat Extractor";
             this.ResumeLayout(false);
             this.PerformLayout();
 
