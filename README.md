@@ -6,6 +6,14 @@ For a given skype username, you are able to extract the desired
 chat history of certain skype chat contacts.
 
 ===========
+Assumptions
+===========
+
+- For a given user, they have used Skype on the computer
+- The user has not relocated their main.db file, which contains
+  all of their chat history information
+
+===========
 Tech Notes
 ===========
 
