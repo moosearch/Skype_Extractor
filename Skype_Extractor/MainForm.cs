@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Skype_Extractor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         SkypeExtractor sky;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -94,6 +94,7 @@ namespace Skype_Extractor
             // Format and write chat history to a directory
             saveLocationChatHistory.ShowDialog();
 
+            // Check if right list is empty
             if (listBox2.Items.Count == 0)
             {
                 MessageBox.Show(
@@ -104,6 +105,7 @@ namespace Skype_Extractor
                 return;
             }
 
+            // Check if the directory is selected
             if (saveLocationChatHistory.SelectedPath == null)
             {
                 MessageBox.Show(
@@ -114,8 +116,10 @@ namespace Skype_Extractor
                 return;
             }
 
+            // Extract chat
             sky.ExtractChat(listBox2.Items, saveLocationChatHistory.SelectedPath);
 
+            // Finished msg
             string dir = String.Format("Chat extraction is done. Your chat histories are found in the following directory:\n {0}",saveLocationChatHistory.SelectedPath);
             MessageBox.Show(
                 dir,
@@ -123,6 +127,8 @@ namespace Skype_Extractor
                 MessageBoxButtons.OK,
                 MessageBoxIcon.None
                 );
+
+            // Clear the skype user's session.
             SkypeIdTextBox.Text = null;
             listBox1.Items.Clear();
             listBox2.Items.Clear();

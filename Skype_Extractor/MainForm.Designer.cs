@@ -1,6 +1,6 @@
 ﻿namespace Skype_Extractor
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.

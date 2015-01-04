@@ -3,7 +3,8 @@
  * Oct 29, 2014
  * Skype.cs
  * 
- * Description: Object class for extracting chat history.
+ * Description: Contains classes for extracting chat history from a SQLite database 
+ * associated with Skype.
  */
 
 using System;
@@ -19,11 +20,17 @@ using System.Windows.Forms;
  */
 public class Contact
 {
-    public string SkypeName;
+    public string SkypeName; 
     public string Nickname;
-    public bool blocked;
+    public bool blocked; 
     public List<string> ChatHistory;
 
+    /// <summary>
+    ///   Constructor
+    /// </summary>
+    /// <param name="name"></param> SkypeID of contact
+    /// <param name="nick"></param> Their display name in Skype
+    /// <param name="block"></param> Whether they are blocked by the active Skype user or not
     public Contact(string name, string nick, bool block)
     {
         this.SkypeName = ParseMSNSkypeName(name);
@@ -32,9 +39,11 @@ public class Contact
         this.ChatHistory = new List<string>();
     }
 
-    /*
-     * Helper method for parsing "1:" or "live:" at the beginning of strings
-     */
+    /// <summary>
+    /// Helper method for parsing "1:" or "live:" at the beginning of strings
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     private string ParseMSNSkypeName(string name)
     {
         // A length check so that the subsequent substring methods will not crash
@@ -42,6 +51,8 @@ public class Contact
         {
             return name;
         }
+
+        // Check for two variations of non-skype ids (eg. @live.ca, @live.com)
 
         string x = name.Substring(0, 2);
         if (x.Equals("1:"))
@@ -64,7 +75,12 @@ public class SkypeExtractor
     public SQLiteConnection cnn; // database connection
     public List<Contact> listOfContacts; // list of contacts
 
-    /// SkypeExtractor constructor
+    // SkypeExtractor constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="username"></param> The username that the database is being extracted for. 
+    /// <param name="MSN"></param> Whether this is a skype id or email address; not used yet
     public SkypeExtractor(string username, bool MSN)
     {
         this.username = username;
@@ -82,6 +98,11 @@ public class SkypeExtractor
         this.listOfContacts = BuildContactList();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="directory"></param> Directory String
+    /// <returns> Returns an active DB connection to the desired Skype database </returns>
     private SQLiteConnection InitializeConnection(string directory)
     {
         // Build connectionString for the database connection
@@ -95,20 +116,15 @@ public class SkypeExtractor
         return new SQLiteConnection(builder.ConnectionString);
     }
 
-    /*
-     * Name: GetContactList()
-     * [Parameters]
-     * NONE
-     * [Description]
-     * It is assumed that there is an active database connection currently running
-     * on a valid database containing skype information.
-     * This creates a list of string arrays, length 3, which contain skype contact
-     * information. Each string array represents one contact and has the following:
-     *      [0]: Skypename (Either NULL or a string)
-     *      [1]: Nickname/Fullname (Either NULL or a string)
-     *      [2]: Blocked or unblocked (Either "1" or NULL)
-     * It will return that list of string arrays.
-     * **/
+
+    /// <summary>
+    /// This creates a list of string arrays of length 3. They contain skype contact
+    /// information. Each string array represents one contact and has the following:
+    ///     [0]: Skypename (either NULL or a string)
+    ///     [1]: Nickname/Fullname (either NULL or a string)
+    ///     [2}: Blocked/unblocked (either "1" or NULL)
+    /// </summary>
+    /// <returns>A list of contacts</returns>
     private List<Contact> BuildContactList()
     {
         // Create db query
@@ -135,44 +151,15 @@ public class SkypeExtractor
             ChatList.Add(c);
         }
 
-        //ChatList.Sort(SortContact);
-
         return ChatList;
     }
 
-    /*
-     * returns sorted list for string (for debug)
-     */
-    private int SortContact(Contact x, Contact y)
-    {
-        if (x.SkypeName == null)
-        {
-            if (y.SkypeName == null)
-            {
-                return 0; // both null
-            }
-            else
-            {
-                return -1; // x < y (x is null)
-            }
-        }
-        else
-        {
-            if (y.SkypeName == null)
-            {
-                return 1; // x > y (y is null)
-            }
-            else
-            {
-                return (x.SkypeName).CompareTo(y.SkypeName); // returns x < y 
-            }
-        }
-
-    }
-
-    /*
-     * 
-     */
+    /// <summary>
+    /// For the active skype user, it extracts the chats for their desired contacts. Event is
+    /// given by the extract button in the GUI.
+    /// </summary>
+    /// <param name="ContactListToExtract"></param> The list of contacts that are going to get extracted
+    /// <param name="directory"></param> Desired directory to store chat histories for said contacts
     public void ExtractChat(ListBox.ObjectCollection ContactListToExtract, string directory)
     {
         // Extract each contact's message history from db file
@@ -184,6 +171,11 @@ public class SkypeExtractor
         }
     }
 
+    /// <summary>
+    /// Writes chat history files for a Contact c
+    /// </summary>
+    /// <param name="c"></param> The contact object. Assumes there is already chat histories there.
+    /// <param name="dir"></param> Desired directory to write the file.
     public void WriteFile(Contact c, string dir)
     {
         int number = 0;
@@ -205,22 +197,19 @@ public class SkypeExtractor
 
     }
 
-    /*
-     * Name: PullChat()
-     * [Parameters]
-     * (string) curr_contact - current contact for message history to be extracted
-     * [Description]
-     * It is assumed that there is an active database connection currently running
-     * on a valid database containing skype information.
-     * This creates a list of strings that contain the message history for a given
-     * user, which will be returned to the method caller.
-     * **/
-    public void PullChat(Contact curr)
+    /// <summary>
+    /// It is assumed that there is an active database connection currently running
+    /// on a valid database containing skype information. This creates a list of 
+    /// strings that contain the message history for a given user, which will be 
+    /// returned to the method caller.
+    /// </summary>
+    /// <param name="c"></param> current contact for message history to be extracted
+    public void PullChat(Contact c)
     {
         // Create db query
         SQLiteCommand contacts_cmd = this.cnn.CreateCommand() as SQLiteCommand;
         contacts_cmd.CommandText =
-            "SELECT author, from_dispname, datetime(timestamp, 'unixepoch') as date, body_xml FROM Messages where dialog_partner = \'" + curr.SkypeName + "\' ORDER BY timestamp;";
+            "SELECT author, from_dispname, datetime(timestamp, 'unixepoch') as date, body_xml FROM Messages where dialog_partner = \'" + c.SkypeName + "\' ORDER BY timestamp;";
 
         // Execute query
         contacts_cmd.ExecuteNonQuery();
@@ -233,7 +222,7 @@ public class SkypeExtractor
         {
             string msg = "";
             msg += Convert.ToString(reader[0] + " (" + reader[1] + ")\t\t\t " + reader[2] + ": " + reader[3]);
-            curr.ChatHistory.Add(msg);
+            c.ChatHistory.Add(msg);
         }
     }
 
