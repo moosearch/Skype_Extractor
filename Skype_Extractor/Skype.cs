@@ -13,6 +13,7 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Skype_Extractor;
 
 /**
  * Class for holding a skype contact, including 
@@ -190,6 +191,7 @@ public class SkypeExtractor
         {
             foreach (string line in c.ChatHistory)
             {
+                FileFormatter.Format(line);
                 file.WriteLine(line);
             }
         }
